@@ -25,7 +25,7 @@ public class AccountTypeController
             @RequestParam(value = "echo", defaultValue = "pong")
                     String echo)
     {
-        GeneralResponse<String> response = new GeneralResponse<>();
+        GeneralResponse<String> response = new GeneralResponse<>(true, echo);
         return new ResponseEntity<>(echo, HttpStatus.OK);
     }
 
@@ -38,9 +38,8 @@ public class AccountTypeController
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
     public ResponseEntity<GeneralResponse<String>> getPing(
             @RequestParam(value = "echo", defaultValue = "pong", required = false)
-                    String echo)
-    {
-        GeneralResponse<String> response = new GeneralResponse<>();
+                    String echo) {
+        GeneralResponse<String> response = new GeneralResponse<>(true, echo);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -52,11 +51,10 @@ public class AccountTypeController
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
 
     public ResponseEntity<GeneralResponse<Pong>> getPong(
-
             @ApiParam(value = "Request body to create a new Pong.",
                     required = true)
             @RequestBody Pong pong) {
-        GeneralResponse<Pong> response = new GeneralResponse<>();
+        GeneralResponse<Pong> response = new GeneralResponse<>(true, pong);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -73,7 +71,7 @@ public class AccountTypeController
                     required = true)
         @RequestBody Pong pong) {
         pong.setOnDate(pong.getOnDate().plusDays(daysToAdd));
-        GeneralResponse<Pong> response = new GeneralResponse<>();
+        GeneralResponse<Pong> response = new GeneralResponse<>(true, pong);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -87,8 +85,7 @@ public class AccountTypeController
             @ApiParam(value = "The Pong",
             required = true)
             @RequestBody Pong pong){
-
-        GeneralResponse<Pong> response = new GeneralResponse<>();
+        GeneralResponse<Pong> response = new GeneralResponse<>(true, pong);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -100,8 +97,9 @@ public class AccountTypeController
             @ApiResponse(code = 404, message = "Not found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
 
-    public ResponseEntity<GeneralResponse<String>> ping(){
+    public ResponseEntity<GeneralResponse<String>> ping() {
         throw new RuntimeException("Give an error");
-}
+    }
+
 
 }
